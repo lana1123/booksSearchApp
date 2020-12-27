@@ -1,5 +1,21 @@
+.body {
+  margin-top: 0;
+
+}
+
 .App {
   text-align: center;
+  background-image: url("./assets/j-zamora-GWOTvo3qq7U-unsplash.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0;
+  z-index: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.App h1 {
+color: white;
 }
 
 .App-logo {
@@ -35,4 +51,40 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.book img {
+  width: 129px;
+  height: auto;
+  /* height: 150px; */
+}
+
+.alert {
+  color: red;
+}
+
+.book-list {
+  /* background-color: aqua; */
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 20px;
+  justify-content: space-around;
+  min-height: 500px;
+}
+
+.book {
+  margin: 10px 20px;
+  flex: 1 1 8rem;
+}
+
+.book p{
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 18px; 
+  max-height: 36px; 
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+  margin: 5px;
 }
