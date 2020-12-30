@@ -21,20 +21,10 @@
 .book img {
   width: 129px;
   height: auto;
-  /* height: 150px; */
 }
 
 .alert {
   color: red;
-}
-
-.book-list {
-  /* background-color: aqua; */
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px 20px;
-  justify-content: space-around;
-  min-height: 500px;
 }
 
 .pageNumber {
@@ -62,30 +52,39 @@
   padding: 0;
 }
 
-.book-container {
-  max-width: 13rem;
-  padding: 0px calc((100% - (13rem * 4)) / 8) 30px
-    calc((100% - (13rem * 4)) / 8);
-  /* display: flex; */
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 20px;
+  justify-content: space-evenly;
 }
 
-/* .flip {
+.book-container {
+  width: 20rem;
+  padding: 0px calc((100% - (20rem * 4)) / 8) 30px
+    calc((100% - (13rem * 4)) / 8);
   display: flex;
-  /* background-color: green;
-  padding: 20px;
-  display: flex;
-} */
+  justify-content: center;
+}
+
+@media (min-width: 1280px) {
+  .book-container {
+    width: 13rem;
+    padding: 0px calc((100% - (13rem * 4)) / 8) 30px
+      calc((100% - (13rem * 4)) / 8);
+    display: flex;
+    justify-content: center;
+  }
+}
 
 @media (min-width: 1900px) {
   .book-list {
-    /* background-color: aqua; */
     max-width: 1500px;
     display: flex;
     flex-wrap: wrap;
     margin: auto;
     justify-content: space-around;
     height: 85vh;
-    /* min-height: 500px; */
   }
 
   .book-container {

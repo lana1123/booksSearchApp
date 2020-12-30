@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -15,29 +14,15 @@ import ReactCardFlip from "react-card-flip";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    //   maxWidth: '13rem',
-    //   margin: '0px 1px',
-    // margin: '20px calc((100% - (15rem * 4)) / 8)',
-    //   flex: '1 1 13rem',
-    padding: "20px 5px 20px 5px",
-    // padding: '20px calc((100% - (300px * 4)) / 4)',
+    height: "100%",
+    width: "265px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    //   alignItems: 'flex-end',
+    padding: "20px 5px 10px 5px",
   },
   image: {
     margin: "0 28px",
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    padding: "0",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
   },
   avatar: {
     backgroundColor: red[500],
@@ -80,70 +65,74 @@ const Book = ({ book, handleCardFlip, isFlipped }) => {
     ? book.volumeInfo.imageLinks.thumbnail
     : Image;
 
+  const cardStyle = {
+    display: "flex",
+    margin: "0 0 40px 0",
+    minHeight: "360px",
+  };
+
   return (
     <div className="book-container">
-      <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
-        <div className="flip front">
-          <Card className={classes.root}>
-            <a href={infoLink} target="_blank">
-              <img src={image} alt={title} className={classes.image} />
-            </a>
-            <CardHeader
-              titleTypographyProps={{ variant: "p" }}
-              className={classes.title}
-              title={title}
-            />
-            <Typography className={classes.authors}>
-              {authors && authors.length > 1 ? authors.join(", ") : authors}
+      <ReactCardFlip
+        isFlipped={isFlipped}
+        flipDirection="vertical"
+        containerStyle={cardStyle}
+      >
+        <Card className={classes.root}>
+          <a href={infoLink} target="_blank">
+            <img src={image} alt={title} className={classes.image} />
+          </a>
+          <CardHeader
+            titleTypographyProps={{ variant: "p" }}
+            className={classes.title}
+            title={title}
+          />
+          <Typography className={classes.authors}>
+            {authors && authors.length > 1 ? authors.join(", ") : authors}
+          </Typography>
+          <CardActions disableSpacing>
+            {
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                {language.toUpperCase()}
+              </Avatar>
+            }
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              className={classes.categories}
+            >
+              {categories ?? "No categories"}
             </Typography>
-            <CardActions disableSpacing>
-              {
-                <Avatar aria-label="recipe" className={classes.avatar}>
-                  {language.toUpperCase()}
-                </Avatar>
-              }
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                className={classes.categories}
-              >
-                {categories ?? "No categories"}
-              </Typography>
-              <IconButton
-                className={clsx(classes.expand, {
-                  [classes.expandOpen]: expanded,
-                })}
-                onClick={handleCardFlip}
-                aria-expanded={expanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </CardActions>
-          </Card>
-        </div>
+            <IconButton
+              onClick={handleCardFlip}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+        </Card>
 
-        <div className="flip back">
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography paragraph>Description:</Typography>
-              <Typography variant="body2">
-                {description ?? "No description available"}
-              </Typography>
-              <IconButton
-                className={clsx(classes.expand, {
-                  [classes.expandOpen]: expanded,
-                })}
-                onClick={handleCardFlip}
-                aria-expanded={expanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </CardContent>
-          </Card>
-        </div>
+        <Card className={classes.root}>
+          <CardContent>
+            <Typography paragraph>Description:</Typography>
+            <Typography variant="body2">
+              {description
+                ? description.length >= 320
+                  ? description.slice(0, 375) + "..."
+                  : description
+                : "No description available"}
+            </Typography>
+            <IconButton
+              onClick={handleCardFlip}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardContent>
+        </Card>
       </ReactCardFlip>
     </div>
   );
