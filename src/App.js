@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
-import Book from './components/Book';
-import Book2 from './components/Book2';
 import axios from 'axios';
 import Alert from './components/Alert';
-import { Input, TextField } from '@material-ui/core';
-import SearchIcon from "@material-ui/icons/Search";
-import InputAdornment from '@material-ui/core/InputAdornment';
+import { Input } from '@material-ui/core';
+import Books from './components/Books';
+import Pagination from './components/Pagination';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {BOOKS_PER_PAGE} from './utility/constants';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
    color: 'white',
    backgroundColor: 'rgba(52, 52, 52, 0.8)',
-   "&&&:before": {
-    borderBottom: "none"
+    "&&&:before": {
+      borderBottom: "none"
   },
-  "&&:after": {
-    borderBottom: "none"
-  }
+    "&&:after": {
+      borderBottom: "none"
+    }
+  },
+  spinner: {
+   color: 'white'
   },
   search: {
     color: 'white',
@@ -38,28 +42,32 @@ const App = () => {
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState([]);
   const [alert, setAlert] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
   const apiKey = "AIzaSyBhPHCczWmAU6Rr_Oz_KUXDHPwozYSDa_o"; 
   const classes = useStyles(); 
+  const maxResults = "40";
 
   const getBook = (e) => {
     if(query !== "") {
       setLoading(true);
-      axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}+intitle=${query}&maxResults=9&key=${apiKey}`)
+      axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}+intitle=${query}&maxResults=${maxResults}&key=${apiKey}`)
       .then(res => {
-        // console.log(res);
         if(res.data.totalItems === 0) {
           setLoading(false);
           return setAlert("No search results. Please try again with another keyword");
         }
         else {
-          setQuery("");
+          
           setBooks(res.data.items);
-          // console.log(res.data.items);
-          setLoading(false);
+          setTotalPages(Math.ceil(res.data.items.length / BOOKS_PER_PAGE));
+        }       
+      }).then(res => {
+          setQuery("");
           setAlert("");
           e.target.reset();
-        }       
+          setLoading(false);
       }).catch(err => {
         setLoading(true);
         return setAlert(err.response.data.error.message);
@@ -73,6 +81,10 @@ const App = () => {
 
   const onChange = (e) => {
     setQuery(e.target.value);
+  }
+
+  const handleClick = (num) => {
+    setPage(num);
   }
 
   const onSubmit = (e) => {
@@ -91,8 +103,7 @@ const App = () => {
       placeholder="Enter book title" 
       autoComplete="off" 
       onChange={onChange}
-      name="query"     
-      autoFocus="false"
+      name="query"
       classes={{
         root: classes.root
       }}
@@ -105,12 +116,15 @@ const App = () => {
       }}
       />
       </form>
-      {loading && <p>Loading</p>}
-      {!loading && <div class="book-list">
-        {books !== [] && books.map(book =>
-          <Book key={book.id} book={book}/>
-        )}
-      </div>}
+      <div className="spinner-container">{loading &&   <div className="spinner">
+      <CircularProgress  classes={{
+        root: classes.spinner
+      }}/>
+    </div>}</div>
+      
+      {!loading && totalPages>1 && <p className="pageNumber">Page {page}</p>}
+      {!loading && <Books books={books} page={page}/>}
+      <Pagination totalPages={totalPages} handleClick={handleClick}/>
       
     </div>
   );
