@@ -84,7 +84,7 @@
     flex-wrap: wrap;
     margin: auto;
     justify-content: space-around;
-    height: 85vh;
+    min-height: 85vh;
   }
 
   .book-container {
