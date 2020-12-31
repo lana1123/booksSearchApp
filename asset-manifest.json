@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/booksSearchApp/static/css/main.9f30ddc5.chunk.css",
+    "main.js": "/booksSearchApp/static/js/main.37ab6a01.chunk.js",
+    "main.js.map": "/booksSearchApp/static/js/main.37ab6a01.chunk.js.map",
+    "runtime-main.js": "/booksSearchApp/static/js/runtime-main.a8c76aab.js",
+    "runtime-main.js.map": "/booksSearchApp/static/js/runtime-main.a8c76aab.js.map",
+    "static/js/2.6e0c3d44.chunk.js": "/booksSearchApp/static/js/2.6e0c3d44.chunk.js",
+    "static/js/2.6e0c3d44.chunk.js.map": "/booksSearchApp/static/js/2.6e0c3d44.chunk.js.map",
+    "index.html": "/booksSearchApp/index.html",
+    "static/css/main.9f30ddc5.chunk.css.map": "/booksSearchApp/static/css/main.9f30ddc5.chunk.css.map",
+    "static/js/2.6e0c3d44.chunk.js.LICENSE.txt": "/booksSearchApp/static/js/2.6e0c3d44.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/booksSearchApp/static/media/j-zamora-GWOTvo3qq7U-unsplash.eb4d9368.jpg",
+    "static/media/no_image.73ac92f9.png": "/booksSearchApp/static/media/no_image.73ac92f9.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a8c76aab.js",
+    "static/js/2.6e0c3d44.chunk.js",
+    "static/css/main.9f30ddc5.chunk.css",
+    "static/js/main.37ab6a01.chunk.js"
+  ]
+}
